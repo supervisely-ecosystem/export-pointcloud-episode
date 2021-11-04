@@ -1,0 +1,25 @@
+{
+  "name": "Download pointclouds episode",
+  "type": "app",
+  "categories": [
+    "export"
+  ],
+  "description": "With annotations and photo context",
+  "docker_image": "supervisely/base-py-sdk:latest",
+  "main_script": "src/main.py",
+  "modal_template": "src/modal.html",
+  "modal_template_state": {
+    "download_pcd": true,
+    "download_annotation": true,
+    "download_photocontext": true
+  },
+  "task_location": "workspace_tasks",
+  "isolate": true,
+  "headless": true,
+  "icon": "https://i.imgur.com/1hqGMyg.png",
+  "icon_background": "#FFFFFF",
+  "context_menu": {
+    "target": ["pointcloud_episode_project", "pointcloud_episode_dataset"],
+    "context_root": "Download as"
+  }
+}
