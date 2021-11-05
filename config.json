@@ -19,7 +19,7 @@
   "icon": "https://i.imgur.com/1hqGMyg.png",
   "icon_background": "#FFFFFF",
   "context_menu": {
-    "target": ["pointcloud_episodes_project", "pointcloud_episodes_dataset"],
+    "target": ["point_cloud_episodes_project", "point_cloud_episodes_dataset"],
     "context_root": "Download as"
   }
 }

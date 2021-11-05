@@ -1,9 +1,9 @@
 import os
 import sys
+
 sys.path.append('/sly')
 import supervisely_lib as sly
 from supervisely_lib.project.pointcloud_episode_project import download_pointcloud_episode_project
-
 
 api: sly.Api = sly.Api.from_env()
 my_app: sly.AppService = sly.AppService()
@@ -24,7 +24,6 @@ except KeyError:
     DATASET_ID = None
 
 assert DATASET_ID or PROJECT_ID
-
 
 download_pcd = os.environ['modal.state.download_pcd'] == 'true'
 download_annotation = os.environ['modal.state.download_annotation'] == 'true'
@@ -56,8 +55,10 @@ def download_episode(api: sly.Api, task_id, context, state, app_logger):
     result_archive = os.path.join(my_app.data_dir, full_archive_name)
     sly.fs.archive_directory(download_dir, result_archive)
     app_logger.info("Result directory is archived")
+
     upload_progress = []
     remote_archive_path = "/Export-to-Supervisely/{}_{}".format(task_id, full_archive_name)
+    remote_archive_path = api.file.get_free_name(TEAM_ID, remote_archive_path)
 
     def _print_progress(monitor, upload_progress):
         if len(upload_progress) == 0:
@@ -74,14 +75,16 @@ def download_episode(api: sly.Api, task_id, context, state, app_logger):
     my_app.stop()
 
 
-
 def main():
     sly.logger.info(
         "Script arguments",
         extra={
             "TEAM_ID": TEAM_ID,
             "WORKSPACE_ID": WORKSPACE_ID,
-            "PROJECT_ID": PROJECT_ID
+            "PROJECT_ID": PROJECT_ID,
+            "download_pcd": download_pcd,
+            "download_annotation": download_annotation,
+            "download_photocontext": download_photocontext
         }
     )
 
