@@ -11,7 +11,7 @@ my_app: sly.AppService = sly.AppService()
 TEAM_ID = int(os.environ['context.teamId'])
 WORKSPACE_ID = int(os.environ['context.workspaceId'])
 TASK_ID = int(os.environ["TASK_ID"])
-BATCH_SIZE = 10
+BATCH_SIZE = 1
 
 try:
     PROJECT_ID = int(os.environ['modal.state.slyProjectId'])
@@ -26,9 +26,9 @@ except KeyError:
 assert DATASET_ID or PROJECT_ID
 
 
-download_pcd = os.environ['modal.state.download_pcd']
-download_annotation = os.environ['modal.state.download_annotation']
-download_photocontext = os.environ['modal.state.download_photocontext']
+download_pcd = os.environ['modal.state.download_pcd'] == 'true'
+download_annotation = os.environ['modal.state.download_annotation'] == 'true'
+download_photocontext = os.environ['modal.state.download_photocontext'] == 'true'
 
 
 @my_app.callback("download_episode")
@@ -46,7 +46,9 @@ def download_episode(api: sly.Api, task_id, context, state, app_logger):
                                         PROJECT_ID,
                                         download_dir,
                                         dataset_ids=[DATASET_ID] if DATASET_ID else None,
-                                        download_items=False,
+                                        download_pcd=download_pcd,
+                                        download_realated_images=download_photocontext,
+                                        download_annotations=download_annotation,
                                         log_progress=True,
                                         batch_size=BATCH_SIZE)
 
