@@ -1,5 +1,5 @@
 {
-  "name": "Download pointclouds episode",
+  "name": "Download pointcloud episode",
   "type": "app",
   "categories": [
     "export"
@@ -19,7 +19,7 @@
   "icon": "https://i.imgur.com/1hqGMyg.png",
   "icon_background": "#FFFFFF",
   "context_menu": {
-    "target": ["pointcloud_episode_project", "pointcloud_episode_dataset"],
+    "target": ["pointcloud_episodes_project", "pointcloud_episodes_dataset"],
     "context_root": "Download as"
   }
 }
