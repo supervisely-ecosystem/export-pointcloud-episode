@@ -33,16 +33,17 @@ download_photocontext = os.environ['modal.state.download_photocontext'] == 'true
 @my_app.callback("download_episode")
 @sly.timeit
 def download_episode(api: sly.Api, task_id, context, state, app_logger):
-    project = api.project.get_info_by_id(PROJECT_ID)
-
-    # if download_pcd:
-    #     BATCH_SIZE = 1  # is it necessary?
+    if PROJECT_ID:
+        project = api.project.get_info_by_id(PROJECT_ID)
+    else:
+        dataset = api.dataset.get_info_by_id(DATASET_ID)
+        project = api.project.get_info_by_id(dataset.project_id)
 
     download_dir = os.path.join(my_app.data_dir, f'{project.id}_{project.name}')
     sly.fs.remove_dir(download_dir)
 
     download_pointcloud_episode_project(api,
-                                        PROJECT_ID,
+                                        project.id,
                                         download_dir,
                                         dataset_ids=[DATASET_ID] if DATASET_ID else None,
                                         download_pcd=download_pcd,

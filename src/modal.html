@@ -1,8 +1,8 @@
-<div>
-    <sly-field title="Download options" description="Select what to download">
+<sly-field title="Download options" description="Select what to download">
+    <div class="fflex">
         <el-checkbox v-model="state.download_pcd">Point clouds data (.pcd)</el-checkbox>
         <el-checkbox v-model="state.download_annotation">Annotations (.json)</el-checkbox>
         <el-checkbox v-model="state.download_photocontext">Photo context (.jpg / .png)</el-checkbox>
-    </sly-field>
-</div>
+    </div>
+</sly-field>
 
