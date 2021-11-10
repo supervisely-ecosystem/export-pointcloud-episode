@@ -1,10 +1,11 @@
 {
-  "name": "Download pointcloud episode",
+  "name": "Export pointcloud episode",
   "type": "app",
   "categories": [
-    "export"
+    "export",
+    "3D"
   ],
-  "description": "With annotations and photo context",
+  "description": "Export project or dataset in Supervisely pointcloud episode format",
   "docker_image": "supervisely/base-py-sdk:latest",
   "main_script": "src/main.py",
   "modal_template": "src/modal.html",

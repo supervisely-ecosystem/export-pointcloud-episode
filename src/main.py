@@ -5,6 +5,7 @@ sys.path.append('/sly')
 import supervisely_lib as sly
 from supervisely_lib.project.pointcloud_episode_project import download_pointcloud_episode_project
 
+
 api: sly.Api = sly.Api.from_env()
 my_app: sly.AppService = sly.AppService()
 
@@ -25,9 +26,9 @@ except KeyError:
 
 assert DATASET_ID or PROJECT_ID
 
-download_pcd = os.environ['modal.state.download_pcd'] == 'true'
-download_annotation = os.environ['modal.state.download_annotation'] == 'true'
-download_photocontext = os.environ['modal.state.download_photocontext'] == 'true'
+download_pcd = os.getenv('modal.state.download_pcd').lower() in ('true', '1', 't')
+download_annotation = os.getenv('modal.state.download_annotation').lower() in ('true', '1', 't')
+download_photocontext = os.getenv('modal.state.download_photocontext').lower() in ('true', '1', 't')
 
 
 @my_app.callback("download_episode")
