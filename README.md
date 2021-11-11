@@ -23,11 +23,11 @@
 
 ## Overview
 
-Export Supervisely pointcloud episodes project
+Export Supervisely pointcloud episodes project or dataset
 
 # How To Run 
 
-1. Add [Export Supervisely pointcloud episodes](https://ecosystem.supervise.ly/apps/test-compare-gallery) to your team from Ecosystem.
+1. Add [Export Supervisely pointcloud episodes](https://ecosystem.supervise.ly/apps/test-compare-gallery) to your team from Ecosystem
 
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/export-pointcloud-episode" src="" width="450px" style='padding-bottom: 20px'/>  
 
