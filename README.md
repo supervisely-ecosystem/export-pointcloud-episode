@@ -23,7 +23,9 @@
 
 ## Overview
 
-Export Supervisely pointcloud episodes project or dataset
+Export Supervisely pointcloud episodes project or dataset. You can learn more about format and its structure by reading [documentation](https://docs.supervise.ly/data-organization/00_ann_format_navi/07_supervisely_format_pointcloud_episode).
+
+Backward compatible with [`Import pointcloud episodes`](https://ecosystem.supervise.ly/apps/import-pointcloud-episode) app
 
 # How To Run 
 
