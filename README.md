@@ -1,5 +1,5 @@
 <div align="center" markdown>
-<img src="https://i.imgur.com/gxDOY3E.png"/>
+<img src=""/>
 
 
 # Export Supervisely pointcloud episodes
@@ -7,8 +7,7 @@
 <p align="center">
   <a href="#Overview">Overview</a> •
   <a href="#How-To-Run">How To Run</a> •
-  <a href="#How-To-Use">How To Use</a> •
-  <a href="#Demo">Demo</a> 
+  <a href="#How-To-Use">How To Use</a>
 </p>
 
 
@@ -30,18 +29,13 @@ Export Supervisely pointcloud episodes project
 
 1. Add [Export Supervisely pointcloud episodes](https://ecosystem.supervise.ly/apps/test-compare-gallery) to your team from Ecosystem.
 
-<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/export-pointcloud-episode" src="https://i.imgur.com/cCB7M26.png" width="450px" style='padding-bottom: 20px'/>  
+<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/export-pointcloud-episode" src="" width="450px" style='padding-bottom: 20px'/>  
 
 2. Run app from the context menu of **Pointcloud Episodes Project** or **Images Dataset** -> `Download via app` -> `Export pointcloud episodes`
-3. 
+3. Define export settings in modal window and press the **Run** button
 
 
 # How To Use 
 
 1. Wait for the app to process your data, once done, a link for your download will become available
 2. Result archive will be available for download in `Tasks` list (image below) or from `Team Files` (path format is the following `Team Files`->`Export-to-Supervisely`->`<task_id>_<projectId>_<projectName>.tar`)
-3. Define export settings in modal window
-
-# Demo
-
-<a data-key="sly-embeded-video-link" href="https://youtu.be/VeANefh_Gfg" data-video-code="VeANefh_Gfg"> <img src="https://i.imgur.com/ztTRL06.png" alt="SLY_EMBEDED_VIDEO_LINK"  width="800"> </a>  
