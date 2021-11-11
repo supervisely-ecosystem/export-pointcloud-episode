@@ -32,7 +32,7 @@ def download_episode(api: sly.Api, task_id, context, state, app_logger):
     app_logger.info("Result directory is archived")
 
     upload_progress = []
-    remote_archive_path = "/Export-to-Supervisely/{}_{}".format(task_id, full_archive_name)
+    remote_archive_path = "/Export-Supervisely-pointcloud-episodes/{}_{}".format(task_id, full_archive_name)
     remote_archive_path = api.file.get_free_name(g.TEAM_ID, remote_archive_path)
 
     def _print_progress(monitor, upload_progress):
