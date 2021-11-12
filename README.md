@@ -32,8 +32,11 @@ Backward compatible with [`Import pointcloud episodes`](https://ecosystem.superv
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/export-pointcloud-episode" src="https://i.imgur.com/elGjXrN.png" width="450px" style='padding-bottom: 20px'/>  
 
 2. Run app from the context menu of **Pointcloud Episodes Project** or **Images Dataset** -> `Download via app` -> `Export pointcloud episodes`
+
 <img src="https://i.imgur.com/SxZ99i0.png"/>
-4. Define export settings in modal window and press the **Run** button
+
+3. Define export settings in modal window and press the **Run** button
+
 <img src="https://i.imgur.com/q0y9UCN.png" width="600"/>
 
 
