@@ -37,8 +37,9 @@ Backward compatible with [`Import pointcloud episodes`](https://ecosystem.superv
 
 3. Define export settings in modal window and press the **Run** button
 
+<div align="center" markdown>
 <img src="https://i.imgur.com/q0y9UCN.png" width="600"/>
-
+</div>
 
 # How To Use 
 
