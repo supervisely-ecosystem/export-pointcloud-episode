@@ -1,4 +1,5 @@
 <div align="center" markdown>
+<img src="https://i.imgur.com/WiQ86yv.png">
 
 # Export Supervisely pointcloud episodes
 
