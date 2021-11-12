@@ -1,5 +1,5 @@
 {
-  "name": "Export pointcloud episode",
+  "name": "Export pointcloud episodes",
   "type": "app",
   "categories": [
     "export",
