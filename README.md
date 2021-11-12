@@ -44,3 +44,5 @@ Backward compatible with [`Import pointcloud episodes`](https://ecosystem.superv
 
 
 `Team Files`->`Export-Supervisely-pointcloud-episodes`->`<task_id>_<projectId>_<projectName>.tar`)
+
+<img src=""/>
