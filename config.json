@@ -1,5 +1,5 @@
 {
-  "name": "Export pointcloud episodes in supervisely format",
+  "name": "Export Pointcloud Episodes in Supervisely format",
   "type": "app",
   "categories": [
     "export",
