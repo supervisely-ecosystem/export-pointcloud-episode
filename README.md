@@ -1,7 +1,7 @@
 <div align="center" markdown>
 <img src="https://i.imgur.com/WiQ86yv.png">
 
-# Export Supervisely pointcloud episodes
+# Export Supervisely Pointcloud Episodes
 
 <p align="center">
   <a href="#Overview">Overview</a> •
