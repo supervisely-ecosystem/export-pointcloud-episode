@@ -45,10 +45,9 @@ Backward compatible with [`Import pointcloud episodes`](https://ecosystem.superv
 # How To Use 
 
 1. Wait for the app to process your data, once done, a link for download will become available
-<img src="https://i.imgur.com/keujQYZ.png"/>
+<img src="https://i.imgur.com/RhQkXAe.png"/>
 
 2. Result archive will be available for download by link at `Tasks` page or from `Team Files` by the following path:
 
-
-* `Team Files`->`Export-Supervisely-pointcloud-episodes`->`<task_id>_<projectId>_<projectName>.tar`
+`Team Files`->`Export-Supervisely-pointcloud-episodes`->`<task_id>_<projectId>_<projectName>.tar`
 <img src="https://i.imgur.com/0VlxQYv.png"/>
