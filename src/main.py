@@ -1,7 +1,7 @@
 import os
 import globals as g
-import supervisely_lib as sly
-from supervisely_lib.project.pointcloud_episode_project import download_pointcloud_episode_project
+import supervisely as sly
+from supervisely.project.pointcloud_episode_project import download_pointcloud_episode_project
 
 
 @g.my_app.callback("download_episode")
@@ -45,8 +45,8 @@ def download_episode(api: sly.Api, task_id, context, state, app_logger):
 
     file_info = api.file.upload(g.TEAM_ID, result_archive, remote_archive_path,
                                 lambda m: _print_progress(m, upload_progress))
-    app_logger.info("Uploaded to Team-Files: {!r}".format(file_info.full_storage_url))
-    api.task.set_output_archive(task_id, file_info.id, full_archive_name, file_url=file_info.full_storage_url)
+    app_logger.info("Uploaded to Team-Files: {!r}".format(file_info.storage_path))
+    api.task.set_output_archive(task_id, file_info.id, full_archive_name, file_url=file_info.storage_path)
     g.my_app.stop()
 
 
