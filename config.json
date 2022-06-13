@@ -6,7 +6,8 @@
     "3D"
   ],
   "description": "Export project or dataset in Supervisely pointcloud episode format",
-  "docker_image": "supervisely/base-py-sdk:6.2.1",
+  "docker_image": "supervisely/base-py-sdk:6.23.0",
+  "instance_version": "6.4.57",
   "main_script": "src/main.py",
   "modal_template": "src/modal.html",
   "modal_template_state": {
