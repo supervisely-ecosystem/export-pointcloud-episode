@@ -2,8 +2,8 @@
   "name": "Export Pointcloud Episodes in Supervisely format",
   "type": "app",
   "categories": [
-    "export",
-    "3D"
+    "pointclouds",
+    "export"
   ],
   "description": "Export project or dataset in Supervisely pointcloud episode format",
   "docker_image": "supervisely/base-py-sdk:6.23.0",
