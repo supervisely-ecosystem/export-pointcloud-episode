@@ -21,7 +21,7 @@ def download_episode(api: sly.Api, task_id, context, state, app_logger):
                                         download_dir,
                                         dataset_ids=[g.DATASET_ID] if g.DATASET_ID else None,
                                         download_pcd=g.download_pcd,
-                                        download_realated_images=g.download_photocontext,
+                                        download_related_images=g.download_photocontext,
                                         download_annotations=g.download_annotation,
                                         log_progress=True,
                                         batch_size=g.BATCH_SIZE)
