@@ -23,6 +23,7 @@ def download_episode(api: sly.Api, task_id, context, state, app_logger):
                                         download_pcd=g.download_pcd,
                                         download_related_images=g.download_photocontext,
                                         download_annotations=g.download_annotation,
+                                        batch_size=1,
                                         log_progress=True,
                                         batch_size=g.BATCH_SIZE)
 
