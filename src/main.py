@@ -1,71 +1,46 @@
 import os
-import globals as g
 import supervisely as sly
 from supervisely.project.pointcloud_episode_project import download_pointcloud_episode_project
+from dotenv import load_dotenv
 
 
-@g.my_app.callback("download_episode")
-@sly.timeit
-def download_episode(api: sly.Api, task_id, context, state, app_logger):
-    if g.PROJECT_ID:
-        project = api.project.get_info_by_id(g.PROJECT_ID)
-    else:
-        dataset = api.dataset.get_info_by_id(g.DATASET_ID)
-        project = api.project.get_info_by_id(dataset.project_id)
-
-    download_dir = os.path.join(g.my_app.data_dir, f'{project.id}_{project.name}')
-    sly.fs.remove_dir(download_dir)
-
-    download_pointcloud_episode_project(api,
-                                        project.id,
-                                        download_dir,
-                                        dataset_ids=[g.DATASET_ID] if g.DATASET_ID else None,
-                                        download_pcd=g.download_pcd,
-                                        download_related_images=g.download_photocontext,
-                                        download_annotations=g.download_annotation,
-                                        log_progress=True,
-                                        batch_size=g.BATCH_SIZE)
-
-    full_archive_name = str(project.id) + '_' + project.name + '.tar'
-    result_archive = os.path.join(g.my_app.data_dir, full_archive_name)
-    sly.fs.archive_directory(download_dir, result_archive)
-    app_logger.info("Result directory is archived")
-
-    upload_progress = []
-    remote_archive_path = os.path.join(
-        sly.team_files.RECOMMENDED_EXPORT_PATH, "Export-Supervisely-pointcloud-episodes/{}_{}".format(task_id, full_archive_name))
-    remote_archive_path = api.file.get_free_name(g.TEAM_ID, remote_archive_path)
-
-    def _print_progress(monitor, upload_progress):
-        if len(upload_progress) == 0:
-            upload_progress.append(sly.Progress(message="Upload {!r}".format(full_archive_name),
-                                                total_cnt=monitor.len,
-                                                ext_logger=app_logger,
-                                                is_size=True))
-        upload_progress[0].set_current_value(monitor.bytes_read)
-
-    file_info = api.file.upload(g.TEAM_ID, result_archive, remote_archive_path,
-                                lambda m: _print_progress(m, upload_progress))
-    app_logger.info("Uploaded to Team-Files: {!r}".format(file_info.storage_path))
-    api.task.set_output_archive(task_id, file_info.id, full_archive_name, file_url=file_info.storage_path)
-    g.my_app.stop()
+if sly.is_development():
+    load_dotenv("local.env")
+    load_dotenv(os.path.expanduser("~/supervisely.env"))
 
 
-def main():
-    sly.logger.info(
-        "Script arguments",
-        extra={
-            "TEAM_ID": g.TEAM_ID,
-            "WORKSPACE_ID": g.WORKSPACE_ID,
-            "PROJECT_ID": g.PROJECT_ID,
-            "download_pcd": g.download_pcd,
-            "download_annotation": g.download_annotation,
-            "download_photocontext": g.download_photocontext
-        }
-    )
-
-    g.my_app.run(initial_events=[{"command": "download_episode"}])
+download_pcd = os.getenv('modal.state.download_pcd').lower() in ('true', '1', 't')
+download_annotation = os.getenv('modal.state.download_annotation').lower() in ('true', '1', 't')
+download_photocontext = os.getenv('modal.state.download_photocontext').lower() in ('true', '1', 't')
+BATCH_SIZE = 1
+STORAGE_DIR = sly.app.get_data_dir()
 
 
-if __name__ == "__main__":
-    sly.main_wrapper("main", main)
+class MyExport(sly.app.Export):
+    def process(self, context: sly.app.Export.Context):
+
+        api = sly.Api.from_env()
+        project = api.project.get_info_by_id(id=context.project_id)
+        download_dir = os.path.join(STORAGE_DIR, f'{project.id}_{project.name}')
+        sly.fs.remove_dir(download_dir)
+
+        download_pointcloud_episode_project(api,
+                                            project.id,
+                                            download_dir,
+                                            dataset_ids=[context.dataset_id] if context.dataset_id is not None else None,
+                                            download_pcd=download_pcd,
+                                            download_related_images=download_photocontext,
+                                            download_annotations=download_annotation,
+                                            log_progress=True,
+                                            batch_size=BATCH_SIZE)
+
+        full_archive_name = f"{project.id}_{project.name}.tar"
+        result_archive = os.path.join(STORAGE_DIR, full_archive_name)
+        sly.fs.archive_directory(download_dir, result_archive)
+        sly.logger.info("Result directory is archived")
+
+        return result_archive
+
+
+app = MyExport()
+app.run()
