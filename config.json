@@ -1,31 +1,31 @@
 {
-  "name": "Export Pointcloud Episodes in Supervisely format",
-  "type": "app",
-  "categories": [
-    "pointclouds",
-    "export"
-  ],
-  "description": "Export project or dataset in Supervisely pointcloud episode format",
-  "docker_image": "supervisely/base-py-sdk:6.72.55",
-  "instance_version": "6.4.57",
-  "main_script": "src/main.py",
-  "modal_template": "src/modal.html",
-  "modal_template_state": {
-    "download_pcd": true,
-    "download_annotation": true,
-    "download_photocontext": true
-  },
-  "task_location": "workspace_tasks",
-  "isolate": true,
-  "headless": true,
-  "icon": "https://i.imgur.com/IIZpWnK.png",
-  "icon_background": "#FFFFFF",
-  "context_menu": {
-    "target": [
-      "point_cloud_episodes_project",
-      "point_cloud_episodes_dataset"
+    "name": "Export Pointcloud Episodes in Supervisely format",
+    "type": "app",
+    "categories": [
+        "pointclouds",
+        "export"
     ],
-    "context_root": "Download as"
-  },
-  "poster": "https://user-images.githubusercontent.com/48245050/182636979-76458c60-cd54-4eeb-96cf-15b642713ab5.png"
+    "description": "Export project or dataset in Supervisely pointcloud episode format",
+    "docker_image": "supervisely/import-export:0.0.2",
+    "instance_version": "6.4.57",
+    "main_script": "src/main.py",
+    "modal_template": "src/modal.html",
+    "modal_template_state": {
+        "download_pcd": true,
+        "download_annotation": true,
+        "download_photocontext": true
+    },
+    "task_location": "workspace_tasks",
+    "isolate": true,
+    "headless": true,
+    "icon": "https://i.imgur.com/IIZpWnK.png",
+    "icon_background": "#FFFFFF",
+    "context_menu": {
+        "target": [
+            "point_cloud_episodes_project",
+            "point_cloud_episodes_dataset"
+        ],
+        "context_root": "Download as"
+    },
+    "poster": "https://user-images.githubusercontent.com/48245050/182636979-76458c60-cd54-4eeb-96cf-15b642713ab5.png"
 }
