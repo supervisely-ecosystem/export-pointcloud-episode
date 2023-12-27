@@ -37,14 +37,26 @@ def download_episode(api: sly.Api, task_id):
         f"Export-Supervisely-pointcloud-episodes/{task_id}_{full_archive_name}",
     )
     remote_archive_path = api.file.get_free_name(g.TEAM_ID, remote_archive_path)
-    file_size = os.path.getsize(result_archive)
-    progress = tqdm(
-        total=file_size,
-        desc=f"Upload to Team Files: {full_archive_name}",
-        unit="B",
-        unit_scale=True,
+    upload_progress = []
+
+    def _print_progress(monitor, upload_progress):
+        if len(upload_progress) == 0:
+            upload_progress.append(
+                sly.Progress(
+                    message="Upload {!r}".format(full_archive_name),
+                    total_cnt=monitor.len,
+                    ext_logger=sly.logger,
+                    is_size=True,
+                )
+            )
+        upload_progress[0].set_current_value(monitor.bytes_read)
+
+    file_info = api.file.upload(
+        g.TEAM_ID,
+        result_archive,
+        remote_archive_path,
+        lambda m: _print_progress(m, upload_progress),
     )
-    file_info = api.file.upload(g.TEAM_ID, result_archive, remote_archive_path, progress.update)
     sly.logger.info(f"Uploaded to Team-Files: {file_info.storage_path}")
     api.task.set_output_archive(
         task_id, file_info.id, full_archive_name, file_url=file_info.storage_path
