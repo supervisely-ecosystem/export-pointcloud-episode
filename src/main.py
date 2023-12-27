@@ -4,53 +4,51 @@ import supervisely as sly
 from supervisely.project.pointcloud_episode_project import download_pointcloud_episode_project
 
 
-@g.my_app.callback("download_episode")
-@sly.timeit
-def download_episode(api: sly.Api, task_id, context, state, app_logger):
+def download_episode(api: sly.Api, task_id):
     if g.PROJECT_ID:
         project = api.project.get_info_by_id(g.PROJECT_ID)
     else:
         dataset = api.dataset.get_info_by_id(g.DATASET_ID)
         project = api.project.get_info_by_id(dataset.project_id)
 
-    download_dir = os.path.join(g.my_app.data_dir, f'{project.id}_{project.name}')
+    download_dir = os.path.join(g.my_app.data_dir, f"{project.id}_{project.name}")
     sly.fs.remove_dir(download_dir)
 
-    download_pointcloud_episode_project(api,
-                                        project.id,
-                                        download_dir,
-                                        dataset_ids=[g.DATASET_ID] if g.DATASET_ID else None,
-                                        download_pcd=g.download_pcd,
-                                        download_related_images=g.download_photocontext,
-                                        download_annotations=g.download_annotation,
-                                        log_progress=True,
-                                        batch_size=g.BATCH_SIZE)
+    download_pointcloud_episode_project(
+        api,
+        project.id,
+        download_dir,
+        dataset_ids=[g.DATASET_ID] if g.DATASET_ID else None,
+        download_pcd=g.download_pcd,
+        download_related_images=g.download_photocontext,
+        download_annotations=g.download_annotation,
+        log_progress=True,
+        batch_size=g.BATCH_SIZE,
+    )
 
-    full_archive_name = str(project.id) + '_' + project.name + '.tar'
+    full_archive_name = str(project.id) + "_" + project.name + ".tar"
     result_archive = os.path.join(g.my_app.data_dir, full_archive_name)
     sly.fs.archive_directory(download_dir, result_archive)
-    app_logger.info("Result directory is archived")
+    sly.logger.info("Result directory is archived")
 
-    upload_progress = []
     remote_archive_path = os.path.join(
-        sly.team_files.RECOMMENDED_EXPORT_PATH, "Export-Supervisely-pointcloud-episodes/{}_{}".format(task_id, full_archive_name))
+        sly.team_files.RECOMMENDED_EXPORT_PATH,
+        f"Export-Supervisely-pointcloud-episodes/{task_id}_{full_archive_name}",
+    )
     remote_archive_path = api.file.get_free_name(g.TEAM_ID, remote_archive_path)
-
-    def _print_progress(monitor, upload_progress):
-        if len(upload_progress) == 0:
-            upload_progress.append(sly.Progress(message="Upload {!r}".format(full_archive_name),
-                                                total_cnt=monitor.len,
-                                                ext_logger=app_logger,
-                                                is_size=True))
-        upload_progress[0].set_current_value(monitor.bytes_read)
-
-    file_info = api.file.upload(g.TEAM_ID, result_archive, remote_archive_path,
-                                lambda m: _print_progress(m, upload_progress))
-    app_logger.info("Uploaded to Team-Files: {!r}".format(file_info.storage_path))
-    api.task.set_output_archive(task_id, file_info.id, full_archive_name, file_url=file_info.storage_path)
+    file_size = os.path.getsize(result_archive)
+    progress_cb = sly.Progress(
+        message=f"Upload to Team Files: {full_archive_name}", total_cnt=file_size, is_size=True
+    )
+    file_info = api.file.upload(g.TEAM_ID, result_archive, remote_archive_path, progress_cb)
+    sly.logger.info(f"Uploaded to Team-Files: {file_info.storage_path}")
+    api.task.set_output_archive(
+        task_id, file_info.id, full_archive_name, file_url=file_info.storage_path
+    )
     g.my_app.stop()
 
 
+@sly.handle_exceptions(has_ui=False)
 def main():
     sly.logger.info(
         "Script arguments",
@@ -60,11 +58,11 @@ def main():
             "PROJECT_ID": g.PROJECT_ID,
             "download_pcd": g.download_pcd,
             "download_annotation": g.download_annotation,
-            "download_photocontext": g.download_photocontext
-        }
+            "download_photocontext": g.download_photocontext,
+        },
     )
 
-    g.my_app.run(initial_events=[{"command": "download_episode"}])
+    download_episode(g.api, g.TASK_ID)
 
 
 if __name__ == "__main__":
