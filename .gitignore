@@ -1,5 +1,8 @@
 secret_debug.env
 .idea
 venv
-/src/debug
+src/debug
 .venv
+supervisely
+.DS_Store
+__pycache__

@@ -1,28 +1,25 @@
 import os
+from distutils.util import strtobool
 import supervisely as sly
 from supervisely.app.v1.app_service import AppService
+from dotenv import load_dotenv
 
+if sly.is_development():
+    load_dotenv("local.env")
+    load_dotenv(os.path.expanduser("~/supervisely.env"))
 
-api: sly.Api = sly.Api.from_env()
-my_app: AppService = AppService()
+api = sly.Api.from_env()
+my_app = AppService()
 
-TEAM_ID = int(os.environ['context.teamId'])
-WORKSPACE_ID = int(os.environ['context.workspaceId'])
-TASK_ID = int(os.environ["TASK_ID"])
+TEAM_ID = sly.env.team_id()
+WORKSPACE_ID = sly.env.workspace_id()
+TASK_ID = sly.env.task_id()
 BATCH_SIZE = 1
 
-try:
-    PROJECT_ID = int(os.environ['modal.state.slyProjectId'])
-except KeyError:
-    PROJECT_ID = None
+PROJECT_ID = sly.env.project_id(raise_not_found=False)
+DATASET_ID = sly.env.dataset_id(raise_not_found=False)
+assert DATASET_ID or PROJECT_ID, "Either dataset or project ID must be provided"
 
-try:
-    DATASET_ID = int(os.environ['modal.state.slyDatasetId'])
-except KeyError:
-    DATASET_ID = None
-
-assert DATASET_ID or PROJECT_ID
-
-download_pcd = os.getenv('modal.state.download_pcd').lower() in ('true', '1', 't')
-download_annotation = os.getenv('modal.state.download_annotation').lower() in ('true', '1', 't')
-download_photocontext = os.getenv('modal.state.download_photocontext').lower() in ('true', '1', 't')
+download_pcd = bool(strtobool(os.getenv("modal.state.download_pcd")))
+download_annotation = bool(strtobool(os.getenv("modal.state.download_annotation")))
+download_photocontext = bool(strtobool(os.getenv("modal.state.download_photocontext")))
