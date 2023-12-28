@@ -6,7 +6,7 @@
         "export"
     ],
     "description": "Export project or dataset in Supervisely pointcloud episode format",
-    "docker_image": "supervisely/import-export:6.72.222",
+    "docker_image": "supervisely/import-export:6.72.224",
     "instance_version": "6.8.54",
     "main_script": "src/main.py",
     "modal_template": "src/modal.html",
