@@ -5,3 +5,4 @@ src/debug
 .venv
 supervisely
 .DS_Store
+__pycache__
