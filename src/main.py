@@ -6,13 +6,16 @@ from tqdm import tqdm
 import workflow as w
 
 def download_episode(api: sly.Api, task_id):
-    if g.PROJECT_ID:
-        project = api.project.get_info_by_id(g.PROJECT_ID)
-        w.workflow_input(api, g.PROJECT_ID, "project")
-    else:
+    if g.DATASET_ID:
         dataset = api.dataset.get_info_by_id(g.DATASET_ID)
         project = api.project.get_info_by_id(dataset.project_id)
         w.workflow_input(api, g.DATASET_ID, "dataset")
+    elif g.PROJECT_ID:
+        project = api.project.get_info_by_id(g.PROJECT_ID)
+        w.workflow_input(api, g.PROJECT_ID, "project")
+    else:
+        raise ValueError("Either dataset or project ID must be provided")
+    
 
     download_dir = os.path.join(g.my_app.data_dir, f"{project.id}_{project.name}")
     sly.fs.remove_dir(download_dir)
