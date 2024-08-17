@@ -3,14 +3,19 @@ import globals as g
 import supervisely as sly
 from supervisely.project.pointcloud_episode_project import download_pointcloud_episode_project
 from tqdm import tqdm
-
+import workflow as w
 
 def download_episode(api: sly.Api, task_id):
-    if g.PROJECT_ID:
-        project = api.project.get_info_by_id(g.PROJECT_ID)
-    else:
+    if g.DATASET_ID:
         dataset = api.dataset.get_info_by_id(g.DATASET_ID)
         project = api.project.get_info_by_id(dataset.project_id)
+        w.workflow_input(api, g.DATASET_ID, "dataset")
+    elif g.PROJECT_ID:
+        project = api.project.get_info_by_id(g.PROJECT_ID)
+        w.workflow_input(api, g.PROJECT_ID, "project")
+    else:
+        raise ValueError("Either dataset or project ID must be provided")
+    
 
     download_dir = os.path.join(g.my_app.data_dir, f"{project.id}_{project.name}")
     sly.fs.remove_dir(download_dir)
@@ -61,6 +66,7 @@ def download_episode(api: sly.Api, task_id):
     api.task.set_output_archive(
         task_id, file_info.id, full_archive_name, file_url=file_info.storage_path
     )
+    w.workflow_output(api, file_info)
     g.my_app.stop()
 
 
