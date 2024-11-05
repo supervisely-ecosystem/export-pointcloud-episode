@@ -11,23 +11,23 @@
 
 
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervise.ly/apps/export-pointcloud-episode)
-[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervisely.com/apps/export-pointcloud-episode)
+[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/export-pointcloud-episode)
-[![views](https://app.supervise.ly/img/badges/views/supervisely-ecosystem/export-pointcloud-episode.png)](https://supervise.ly)
-[![runs](https://app.supervise.ly/img/badges/runs/supervisely-ecosystem/export-pointcloud-episode.png)](https://supervise.ly)
+[![views](https://app.supervisely.com/img/badges/views/supervisely-ecosystem/export-pointcloud-episode.png)](https://supervisely.com)
+[![runs](https://app.supervisely.com/img/badges/runs/supervisely-ecosystem/export-pointcloud-episode.png)](https://supervisely.com)
 
 </div>
 
 ## Overview
 
-Export Supervisely pointcloud episodes project or dataset. You can learn more about format and its structure by reading [documentation](https://docs.supervise.ly/data-organization/00_ann_format_navi/07_supervisely_format_pointcloud_episode).
+Export Supervisely pointcloud episodes project or dataset. You can learn more about format and its structure by reading [documentation](https://docs.supervisely.com/data-organization/00_ann_format_navi/07_supervisely_format_pointcloud_episode).
 
-Backward compatible with [`Import pointcloud episodes`](https://ecosystem.supervise.ly/apps/import-pointcloud-episode) app
+Backward compatible with [`Import pointcloud episodes`](https://ecosystem.supervisely.com/apps/import-pointcloud-episode) app
 
 # How To Run 
 
-1. Add [Export Supervisely pointcloud episodes](https://ecosystem.supervise.ly/apps/export-pointcloud-episode) to your team from Ecosystem
+1. Add [Export Supervisely pointcloud episodes](https://ecosystem.supervisely.com/apps/export-pointcloud-episode) to your team from Ecosystem
 
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/export-pointcloud-episode" src="https://i.imgur.com/cnXCPVx.png" width="450px" style='padding-bottom: 20px'/>  
 
