@@ -1,9 +1,9 @@
 {
-  "name": "Export Pointcloud Episodes in Supervisely format",
+  "name": "Export Point Cloud Episodes in Supervisely format",
   "type": "app",
   "categories": ["pointclouds", "export"],
-  "description": "Export project or dataset in Supervisely pointcloud episode format",
-  "docker_image": "supervisely/base-py-sdk-hardened:6.73.564",
+  "description": "Export project or dataset in Supervisely point cloud episode format",
+  "docker_image": "supervisely/base-py-sdk-hardened:6.73.573",
   "instance_version": "6.15.60",
   "main_script": "src/main.py",
   "modal_template": "src/modal.html",
